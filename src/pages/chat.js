@@ -79,7 +79,7 @@ const ChatPage = () => {
         if (!isMounted.current) {
             isMounted.current = true;
             chatLoading(true);
-            fetch('https://chatbot.webxspark.repl.co/chat/start', {
+            fetch('https://llama-index-sentinelai.webxspark.repl.co/chat/start', {
                 method: 'GET'
             })
                 .then(res => res.json())
@@ -138,7 +138,7 @@ const ChatPage = () => {
         chatLoading();
         //json stringify chat and append with message
         message = `{new_message: ${message},  all_messages: ${JSON.stringify(chat)}}`;
-        fetch('https://chatbot.webxspark.repl.co/chat', {
+        fetch('https://llama-index-sentinelai.webxspark.repl.co/chat', {
             method: 'POST',
             body: new URLSearchParams({
                 message: message
@@ -147,13 +147,14 @@ const ChatPage = () => {
             .then(res => res.json())
             .then(data => {
                 chatLoading(false);
-                if (data.response) {
+                if (data.response.response) {
                     //count the length of the response
-                    var responseLength = data.response.length;
+                    console.log(data.response);
+                    var responseLength = data.response.response.length;
                     insertChat({
                         type: "bot",
-                        msg_type: (responseLength > 350 ? 'action' : 'message'),
-                        content: data.response,
+                        msg_type: (responseLength > 400 ? 'action' : 'message'),
+                        content: data.response.response,
                         onConfirm: () => {
                             insertUserChat("Yeah! That worked for me")
                         },
