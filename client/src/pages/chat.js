@@ -79,7 +79,7 @@ const ChatPage = () => {
         if (!isMounted.current) {
             isMounted.current = true;
             chatLoading(true);
-            fetch('https://llama-index-sentinelai.webxspark.repl.co/chat/start', {
+            fetch('https://chatbot.webxspark.repl.co/chat/start', {
                 method: 'GET'
             })
                 .then(res => res.json())
@@ -138,7 +138,7 @@ const ChatPage = () => {
         chatLoading();
         //json stringify chat and append with message
         message = `{new_message: ${message},  all_messages: ${JSON.stringify(chat)}}`;
-        fetch('https://llama-index-sentinelai.webxspark.repl.co/chat', {
+        fetch('https://chatbot.webxspark.repl.co/chat', {
             method: 'POST',
             body: new URLSearchParams({
                 message: message
