@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://Sentinel.AI.webxspark.com">
+  <a href="https://sentinel-ai.webxspark.com">
     <img alt = "Sentinel.AI Logo" src = "./src/vector-logo.png">
   </a>
 </p>
@@ -8,7 +8,7 @@
   <a href=" https://github.com/Webxspark/Gen-AI-Hackathon-2023 ">
   <img src="https://img.shields.io/badge/license-MPL 2.0-blue.svg">
   </a>
-  <a href="https://Sentinel.AI.webxspark.com">
+  <a href="https://sentinel-ai.webxspark.com">
     <img alt="Website" src="https://img.shields.io/badge/-website-blue">
   </a>
   <a href="http://makeapullrequest.com">
@@ -19,9 +19,7 @@
 Sentinel.AI is a groundbreaking call management solution that leverages the power of artificial intelligence (AI) to assist in prioritizing emergency calls in the absence of handlers. Through intelligent analysis of keywords and caller location tracking, Sentinel.AI evaluates the significance of each call and expeditiously relays pertinent details to the appropriate handler. This cutting-edge system enhances the efficiency and effectiveness of emergency services, enabling swift and well-informed responses to critical situations.
 <br>
 
-<a href="">Demo Website</a>
-<br>
-<a href="">Deployment Link </a>
+<a href="https://sentinel-ai.webxspark.com" target="_blank" rel="noopener noreferrer">Deployment Link </a>
 
 <br>
 
