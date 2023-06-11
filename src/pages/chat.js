@@ -79,7 +79,7 @@ const ChatPage = () => {
         if (!isMounted.current) {
             isMounted.current = true;
             chatLoading(true);
-            fetch('https://llama-index-sentinelai.webxspark.repl.co/chat/start', {
+            fetch('https://chatbot.webxspark.repl.co/chat/start', {
                 method: 'GET'
             })
                 .then(res => res.json())
@@ -138,7 +138,7 @@ const ChatPage = () => {
         chatLoading();
         //json stringify chat and append with message
         message = `{new_message: ${message},  all_messages: ${JSON.stringify(chat)}}`;
-        fetch('https://llama-index-sentinelai.webxspark.repl.co/chat', {
+        fetch('https://chatbot.webxspark.repl.co/chat', {
             method: 'POST',
             body: new URLSearchParams({
                 message: message
@@ -209,7 +209,7 @@ const ChatPage = () => {
         <>
             <div className="container h-full my-16 font-[Quicksand] font-medium">
                 <div className="grid grid-cols-12 gap-4 mx-12">
-                    <div className="col-span-2">
+                    <div className="md:col-span-4 col-span-12 md:order-1 order-2">
                         <ChatInfoCard onClick={() => {insertUserChat('I had an accident')}} title="I had an accident" />
                         <ChatInfoCard onClick={() => {insertUserChat('I have an injury')}} title="I have an injury" />
                         <div className="bg-[#52057B] mb-6 rounded-lg border-[1px] cursor-pointer p-4" onClick={resetChat}>
@@ -221,7 +221,7 @@ const ChatPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-span-10">
+                    <div className="md:col-span-8 order-1 lg:order-3 col-span-12">
                         <div className="bg-white rounded-t-lg">
                             <div className="py-12 mx-6">
                                 {

@@ -171,10 +171,10 @@ function App() {
     <div className="App">
       {currentAccount === "" ? (
         <>
-          <div className="container my-12 mx-10">
+          <div className="container my-6 md:my-8 md:mx-4 lg:my-12 mx-2 lg:mx-10">
             <div className="grid grid-cols-12">
-              <div className="h-[80dvh] flex flex-col justify-center col-span-5">
-                <div className="mx-12">
+              <div className="lg:h-[80dvh] h-auto flex flex-col justify-center col-span-12 md:col-span-5 md:order-1 order-2">
+                <div className="mx-3 lg:mx-12">
                   <div className="text-4xl font-bold">Sentinel.AI</div>
                   <div className="my-6">
                     Sentinel.AI system lets callers talk to AI if there are no available 911 operators, grading them on the scale of how important their call is based on the keywords and recording their location. While the responses are being gathered, it will prioritize their call and hand over the call transcript to the 911 operator.
@@ -185,10 +185,10 @@ function App() {
                   </div>
                 </div>
               </div>
-              <div className="col-span-7">
-                <div className="h-[80dvh] flex justify-center flex-col gap-3">
+              <div className="col-span-12 md:col-span-7 order-1 lg:order-3">
+                <div className="lg:h-[80dvh] my-5 md:my-0 flex justify-center flex-col gap-3">
                   <div className="flex justify-end">
-                    <div className="relative flex items-center cursor-pointer" onClick={copyPhoneNumberToClipboard}>
+                    <div className="relative right-5 flex items-center cursor-pointer" onClick={copyPhoneNumberToClipboard}>
                       <div className="p-2 bg-[#52057B] border-r-4 border-white rounded-full text-white absolute -left-5 "><AiOutlinePhone className="text-3xl" /></div>
                       <div className="text-white bg-[#52057B] p-2 px-8 rounded-full">+12707704034</div>
                     </div>
@@ -244,7 +244,7 @@ function App() {
             onClick={copyPhoneNumberToClipboard}
           ></img>
           <div>-----------------------------------------</div>
-          <div>Looks Like You are not WhiteListed, Only authorised <b>Smart Rescue</b> Team Members are allowed to access this page.</div>
+          <div>Looks Like You are not WhiteListed, Only authorised <b>Sentinel.AI</b> Team Members are allowed to access this page.</div>
           <div>Contact Us to get your wallet address added to whitelist</div>
           <div>-----------------------------------------</div>
           <div style={{
