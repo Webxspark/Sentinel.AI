@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://sentinel-ai.webxspark.com">
-    <img alt = "Sentinel.AI Logo" src = "./src/vector-logo.png">
+    <img alt = "Sentinel.AI Logo" src = "./vector-logo.png">
   </a>
 </p>
 <h1 align="center" >Sentinel.AI: An AI-Driven Call Management System designed for Emergency Services </h1>
