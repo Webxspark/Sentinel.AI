@@ -4,12 +4,14 @@ import { ethers } from "ethers";
 import { Web3Provider } from "@ethersproject/providers";
 import { getAddress } from "ethers";
 import PhoneNum from "./res/PhoneNum.png";
-import Ilustration from "./res/hero-img.png"
+import Ilustration from "./res/hero-img.svg"
 import OperationsPage from "./components/operations";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ContractAddress } from './config.js';
 import ContractAbi from './utils/Contract.json';
 import { Appcontext } from "./components/context";
+import { AiOutlineMessage, AiOutlinePhone } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 
 function App() {
@@ -83,7 +85,6 @@ function App() {
 
         const res = formattedOperations.map((operationObject) => {
           let td = (operationObject.data).replace(/'/g, '"')
-          console.log(td);
           let temp = JSON.parse(td);
           return {
             id: operationObject.id,
@@ -98,7 +99,6 @@ function App() {
           };
         });
         setOperations(res);
-        console.log(operations);
       }
       else {
         console.log('Ethereum object not found');
@@ -119,7 +119,6 @@ function App() {
         //calling the smart contract
         let wl_data = await MyContract.isWhiteListed();
         setWhiteListed(wl_data);
-        console.log(whitelisted);
       }
       else {
         console.log('Ethereum object not found');
@@ -133,7 +132,6 @@ function App() {
   useEffect(() => {
     if (changeID !== false) {
       const updateStatus = async () => {
-        console.log(changeID, changeStatus);
         try {
           const { ethereum } = window;
           if (ethereum) {
@@ -144,7 +142,6 @@ function App() {
             //calling the smart contract
             MyContract.setStatus(changeID, changeStatus).then(
               response => {
-                console.log('Response : ', response);
                 getEmergencies();
               }
             ).catch(err => {
@@ -173,33 +170,40 @@ function App() {
   return (
     <div className="App">
       {currentAccount === "" ? (
-        <div className="ConnectWallet">
-          <div className="cwTop">
-            <img
-              src={PhoneNum}
-              alt="+12707704034"
-              className="NumBtn"
-              onClick={copyPhoneNumberToClipboard}
-            ></img>
-          </div>
-          <div className="cwBottom">
-            <div className="cwBottomLeft">
-              <div className="cwBottomLeftInner">
-                <div className="cwBottomLeftHead">Smart Rescue</div>
-                <div className="cwBottomLeftBody">
-                  Smart Rescue system lets callers talk to AI if there are no available emergency helpline operators, grading them on the scale of how important their call is based on the keywords and recording their location. While the responses are being gathered, it will prioritize their call and hand over the call transcript to the emergency handlers.
+        <>
+          <div className="container my-12 mx-10">
+            <div className="grid grid-cols-12">
+              <div className="h-[80dvh] flex flex-col justify-center col-span-5">
+                <div className="mx-12">
+                  <div className="text-4xl font-bold">Sentinel.AI</div>
+                  <div className="my-6">
+                    Sentinel.AI system lets callers talk to AI if there are no available 911 operators, grading them on the scale of how important their call is based on the keywords and recording their location. While the responses are being gathered, it will prioritize their call and hand over the call transcript to the 911 operator.
+                  </div>
+                  <div className="flex gap-4 items-center">
+                    <button onClick={connectWallet} className="bg-[#52057B] p-3 px-6 text-white rounded-xl">Connect Wallet</button>
+                    <p className="text-[#52057B] text-lg underline underline-offset-8 cursor-pointer " >Continue with Google</p>
+                  </div>
                 </div>
-                <div className="cwBottomLeftBtn">
-                  <button onClick={connectWallet} className="cwbtn">Connect Wallet</button>
-                  <p className="cwLink" onClick={openInNewTab}>Get Metamask Wallet</p>
+              </div>
+              <div className="col-span-7">
+                <div className="h-[80dvh] flex justify-center flex-col gap-3">
+                  <div className="flex justify-end">
+                    <div className="relative flex items-center cursor-pointer" onClick={copyPhoneNumberToClipboard}>
+                      <div className="p-2 bg-[#52057B] border-r-4 border-white rounded-full text-white absolute -left-5 "><AiOutlinePhone className="text-3xl" /></div>
+                      <div className="text-white bg-[#52057B] p-2 px-8 rounded-full">+12707704034</div>
+                    </div>
+                  </div>
+                  <img src={Ilustration} alt="illustration" />
                 </div>
               </div>
             </div>
-            <div className="cwBottomRight">
-              <img src={Ilustration} alt="illustration"></img>
-            </div>
           </div>
-        </div>
+          <Link to="/chat">
+            <div className="fixed right-5 bottom-5 z-50 px-5 py-3 cursor-pointer">
+              <AiOutlineMessage className="text-6xl bg-[#52057B] text-white p-3 rounded-full absolute bottom-0 top= right-0 m-4" />
+            </div>
+          </Link>
+        </>
       ) : currentAccount === "" ? (
         <div
           className="flex flex-col justify-center items-center mb-20 font-bold text-2xl gap-y-3"
@@ -219,7 +223,7 @@ function App() {
           <div>and reload the page</div>
           <div>-----------------------------------------</div>
         </div>
-      ) : !whitelisted ? ( 
+      ) : !whitelisted ? (
         <div
           className="flex flex-col justify-center items-center mb-20 font-bold text-2xl gap-y-3"
           style={{
@@ -234,22 +238,29 @@ function App() {
           }}
         >
           <img
-              src={PhoneNum}
-              alt="+12707704034"
-              className="NumBtn"
-              onClick={copyPhoneNumberToClipboard}
-            ></img>
+            src={PhoneNum}
+            alt="+12707704034"
+            className="NumBtn"
+            onClick={copyPhoneNumberToClipboard}
+          ></img>
           <div>-----------------------------------------</div>
           <div>Looks Like You are not WhiteListed, Only authorised <b>Smart Rescue</b> Team Members are allowed to access this page.</div>
           <div>Contact Us to get your wallet address added to whitelist</div>
           <div>-----------------------------------------</div>
-          <div style={{fontWeight: "normal",
-            fontSize: "18px"}}>The emergencies of people is an important data and needs to be protected, You trust us with your emergecy info, and we keep your trust. Only authorised people can see your data.</div>
+          <div style={{
+            fontWeight: "normal",
+            fontSize: "18px"
+          }}>The emergencies of people is an important data and needs to be protected, You trust us with your emergecy info, and we keep your trust. Only authorised people can see your data.</div>
         </div>
       ) : (
         <div className="Main">
           <ChakraProvider>
             <OperationsPage operationsData={operations} />
+            <Link to="/chat">
+              <div className="fixed right-5 bottom-5 z-50 px-5 py-3 cursor-pointer">
+                <AiOutlineMessage className="text-6xl bg-[#52057B] text-white p-3 rounded-full absolute bottom-0 top= right-0 m-4" />
+              </div>
+            </Link>
           </ChakraProvider>
         </div>
       )

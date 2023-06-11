@@ -12,7 +12,7 @@ const ChatInfoCard = (props) => {
                 <div className="grid grid-cols-12">
                     <div className="bg-[#2b6877] rounded-full h-auto w-1 col-span-1"></div>
                     <div className="flex gap-1 items-center col-span-11 justify-between my-1">
-                        <div>I had an Accident</div>
+                        <div>{props.title}</div>
                         <HiArrowNarrowRight className="text-2xl text-[#2b6877]" />
                     </div>
                 </div>
@@ -71,7 +71,7 @@ const ChatPage = () => {
     const isMounted = useRef(false);
     const chatFieldRef = useRef(null);
     const submitBtn = useRef(null);
-    
+
     useEffect(() => {
         if (chatFieldRef.current) {
             chatFieldRef.current.focus();
@@ -147,14 +147,13 @@ const ChatPage = () => {
             .then(res => res.json())
             .then(data => {
                 chatLoading(false);
-                if (data.response.response) {
+                if (data.response) {
                     //count the length of the response
-                    console.log(data.response);
-                    var responseLength = data.response.response.length;
+                    var responseLength = data.response.length;
                     insertChat({
                         type: "bot",
-                        msg_type: (responseLength > 400 ? 'action' : 'message'),
-                        content: data.response.response,
+                        msg_type: (responseLength > 350 ? 'action' : 'message'),
+                        content: data.response,
                         onConfirm: () => {
                             insertUserChat("Yeah! That worked for me")
                         },
@@ -203,15 +202,24 @@ const ChatPage = () => {
         getResponse(chat_field)
 
     }
-
+    const resetChat = () => {
+        window.confirm("Are you sure you want to reset the chat?") && window.location.reload();
+    }
     return (
         <>
             <div className="container h-full my-16 font-[Quicksand] font-medium">
                 <div className="grid grid-cols-12 gap-4 mx-12">
                     <div className="col-span-2">
-                        <ChatInfoCard />
-                        <ChatInfoCard />
-                        <ChatInfoCard />
+                        <ChatInfoCard onClick={() => {insertUserChat('I had an accident')}} title="I had an accident" />
+                        <ChatInfoCard onClick={() => {insertUserChat('I have an injury')}} title="I have an injury" />
+                        <div className="bg-[#52057B] mb-6 rounded-lg border-[1px] cursor-pointer p-4" onClick={resetChat}>
+                            <div className="grid grid-cols-12">
+                                <div className="flex gap-1 items-center col-span-12 justify-between my-1 text-white">
+                                    <div>New Chat</div>
+                                    <HiArrowNarrowRight className="text-2xl text-[#fff]" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-span-10">
                         <div className="bg-white rounded-t-lg">
@@ -229,11 +237,6 @@ const ChatPage = () => {
                                         }
                                     })
                                 }
-                                {/* {
-                                    Object.keys(chat).length == 0 && <><div className="flex justify-center items-center h-96">
-                                        <div className="text-2xl text-gray-400">Start a new chat</div>
-                                    </div></>
-                                } */}
                                 {loadingHTML}
                             </div>
                         </div>

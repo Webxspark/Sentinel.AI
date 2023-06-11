@@ -23,7 +23,7 @@ import { Appcontext } from './context';
 const TableBtn = (props) => {
     var type = props.type;
     return (
-        <button className={`px-2 py-3 ${type === 1 ? "text-[#095E97] bg-[#CFECFF]" : type === 0 ? "text-[#FF8A00] bg-[#FFE9CE]" : type === 2 ? "text-[#2B6877] bg-[#92E3A966]" : ""} uppercase`}>{props.type === 2 ? "COMPLETED" : props.type === 1 ? "DISPATCHED" : props.type === 0 ? "TBD" : ""}</button>
+        <button className={`px-2 py-3 ${type === 1 ? "text-[#095E97] bg-[#CFECFF]" : type === 0 ? "text-[#FF8A00] bg-[#FFE9CE]" : type === 2 ? "text-[#000] bg-[#d0abf1]" : ""} uppercase`}>{props.type === 2 ? "COMPLETED" : props.type === 1 ? "DISPATCHED" : props.type === 0 ? "TBD" : ""}</button>
     );
 };
 const TableBody = (props) => {
@@ -46,7 +46,7 @@ const TableBody = (props) => {
     };
     return (
         <>
-            <Tr className="hover:bg-[#f1f1f1] duration-100 cursor-pointer" onClick={onclickevent}>
+            <Tr className="hover:bg-[#F8F1FE] duration-100 cursor-pointer" onClick={onclickevent}>
                 <Td>
                     <div
                         className={`uppercase ${priority === "high" ? "bg-[#FE0A0A]" : priority === "medium" ? "bg-[#FF8A00]" : priority === "low" ? "bg-green-700" : ""} text-center text-white font-semibold w-fit px-2 py-2 rounded-full`}
@@ -213,20 +213,28 @@ const OperationsPage = (props) => {
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {filteredData.map((item) => (
-                                            <TableBody
-                                                _key={item.id}
-                                                priority={item.priority}
-                                                callerName={item.name}
-                                                callerNumber={item.phone}
-                                                emergency={item.attention}
-                                                location={item.location}
-                                                time={item.time}
-                                                status={item.status}
-                                                updateStatusFn2={updateStatusFn}
-                                                onClick={() => { onOpen(); ContentLoadwID(item.id); }}
-                                            />
-                                        ))}
+                                        {filteredData.length == 0 &&
+                                            <><div className="flex ml-8 items-center my-6">No records found</div></>
+                                            || <>
+                                                {filteredData.map((item) => (
+                                                    <>
+                                                        {filteredData.length != 0 ? <TableBody
+                                                            _key={item.id}
+                                                            priority={item.priority}
+                                                            callerName={item.name}
+                                                            callerNumber={item.phone}
+                                                            emergency={item.attention}
+                                                            location={item.location}
+                                                            time={item.time}
+                                                            status={item.status}
+                                                            updateStatusFn2={updateStatusFn}
+                                                            onClick={() => { onOpen(); ContentLoadwID(item.id); }}
+                                                        /> : ""}
+
+                                                    </>
+                                                ))}
+                                            </>
+                                        }
                                     </Tbody>
                                 </Table>
                             </TableContainer>
@@ -243,7 +251,7 @@ const OperationsPage = (props) => {
                                 {modalContentLoaded ? <div className="my-4 w-full">
                                     {/* <img src={map} alt="" className="h-auto w-full" /> */}
                                     {/* .gmap_canvas {overflow:hidden;background:none!important;height:510px;width:770px;} */}
-                                    <div className='w-full' style={{width: "100% !important"}}><div style={{width: "100% !important"}} className="overflow-hidden  bg-none h-auto w-full"><iframe className='w-full h-[450px]' id="gmap_canvas" src={`https://maps.google.com/maps?q=${mapLocation}&t=&z=10&ie=UTF8&iwloc=&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
+                                    <div className='w-full' style={{ width: "100% !important" }}><div style={{ width: "100% !important" }} className="overflow-hidden  bg-none h-auto w-full"><iframe className='w-full h-[450px]' id="gmap_canvas" src={`https://maps.google.com/maps?q=${mapLocation}&t=&z=10&ie=UTF8&iwloc=&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
                                 </div> : <></>}
                             </div>
                         </Collapse>
